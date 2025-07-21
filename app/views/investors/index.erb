@@ -1,0 +1,10 @@
+<h3>Partner: <span><%= @partner.name %></span></h3>
+<h2>Investors</h2>
+<div>
+  <%= link_to 'Add New Investor', new_partner_investor_path(@partner), class: 'btn btn-primary' %>
+</div>
+<div style="padding: 20px 0">
+<% @investors.each do |investor| %>
+  <div style="height: 30px">-> <%= link_to investor.full_name, partner_investor_path(@partner, investor) %></div>
+<% end %>
+</div>

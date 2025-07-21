@@ -1,0 +1,4 @@
+<h3>Partner </h3>
+<% @partners.each do |partner| %>
+  <%= link_to partner.name, partner_investors_path(partner), class: "partner-button" %>
+<% end %>

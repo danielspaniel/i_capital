@@ -1,0 +1,24 @@
+<h2>Investor Details</h2>
+<p><strong>First Name:</strong> <%= @investor.first_name %></p>
+<p><strong>Last Name:</strong> <%= @investor.last_name %></p>
+<p><strong>Date of Birth:</strong> <%= @investor.date_of_birth %></p>
+<p><strong>Phone Number:</strong> <%= @investor.phone_number %></p>
+
+<% if @investor.addresses.any? %>
+  <h3>Addresses</h3>
+  <% @investor.addresses.each do |address| %>
+    <div>
+      <p><strong>Street:</strong> <%= address.street %></p>
+      <p><strong>State:</strong> <%= address.state %></p>
+      <p><strong>Zip Code:</strong> <%= address.zip_code %></p>
+    </div>
+  <% end %>
+<% end %>
+
+<% if @investor.document.attached? %>
+  <p><strong>Document:</strong> <%= link_to 'Download', rails_blob_path(@investor.document, disposition: 'attachment'), target: '_blank' %></p>
+<% else %>
+  <p><strong>Document:</strong> None uploaded</p>
+<% end %>
+
+<%= link_to 'Back to Investors', partner_investors_path(@partner), class: 'btn btn-secondary' %> 

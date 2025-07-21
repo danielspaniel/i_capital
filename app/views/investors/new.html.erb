@@ -1,0 +1,54 @@
+<h2>New Investor for <%= @partner.name %></h2>
+
+<%= form_with(model: [@partner, @investor]) do |f| %>
+  <% if @investor.errors.any? %>
+    <div class="alert alert-danger">
+      <h4><%= pluralize(@investor.errors.count, "error") %> prohibited this investor from being saved:</h4>
+      <ul>
+        <% @investor.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div>
+    <%= f.label :first_name %>
+    <%= f.text_field :first_name %>
+  </div>
+  <div>
+    <%= f.label :last_name %>
+    <%= f.text_field :last_name %>
+  </div>
+  <div>
+    <%= f.label :date_of_birth %>
+    <%= f.date_select :date_of_birth, start_year: 1900, end_year: Date.today.year, default: nil, prompt: { day: 'Day', month: 'Month', year: 'Year' } %>
+  </div>
+  <div>
+    <%= f.label :phone_number %>
+    <%= f.text_field :phone_number %>
+  </div>
+  <div>
+    <%= f.label :document, 'Upload Document' %>
+    <%= f.file_field :document %>
+  </div>
+  <h3>Address</h3>
+  <% require 'us_states' %>
+  <%= f.fields_for :addresses do |af| %>
+    <div>
+      <%= af.label :street %>
+      <%= af.text_field :street %>
+    </div>
+    <div>
+      <%= af.label :state %>
+      <%= af.select :state, UsStates::LIST, prompt: 'Select a state' %>
+    </div>
+    <div>
+      <%= af.label :zip_code %>
+      <%= af.text_field :zip_code %>
+    </div>
+  <% end %>
+  <div style="padding-top: 30px">
+    <%= link_to 'Cancel', partner_investors_path(@partner), class: 'btn btn-secondary', data: { turbo: false } %>
+    <span style="padding-left: 30px"><%= f.submit 'Create Investor' %></span>
+  </div>
+<% end %> 
