@@ -1,10 +1,23 @@
-<h3>Partner: <span><%= @partner.name %></span></h3>
-<h2>Investors</h2>
-<div>
-  <%= link_to 'Add New Investor', new_partner_investor_path(@partner), class: 'btn btn-primary' %>
-</div>
-<div style="padding: 20px 0">
-<% @investors.each do |investor| %>
-  <div style="height: 30px">-> <%= link_to investor.full_name, partner_investor_path(@partner, investor) %></div>
-<% end %>
+<div class="max-w-3xl mx-auto p-6">
+  <h2 class="text-3xl font-bold mb-2 text-gray-800">Investors for <span class="text-blue-700"><%= @partner.name %></span></h2>
+  <div class="flex justify-between items-center mb-8">
+    <span class="text-lg text-gray-600">Total: <%= @investors.count %></span>
+    <%= link_to 'Add New Investor', new_partner_investor_path(@partner), class: 'bg-blue-600 text-white font-semibold py-2 px-6 rounded shadow hover:bg-blue-700 transition' %>
+  </div>
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+    <% @investors.each do |investor| %>
+      <div class="bg-white rounded-lg shadow p-5 flex items-center justify-between hover:shadow-lg transition">
+        <div class="flex items-center">
+          <div class="flex-shrink-0 w-10 h-10 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center font-bold mr-4">
+            <%= investor.first_name.first.upcase %><%= investor.last_name.first.upcase %>
+          </div>
+          <div>
+            <div class="text-lg font-semibold text-gray-800"><%= link_to investor.full_name, partner_investor_path(@partner, investor), class: "hover:underline" %></div>
+            <div class="text-sm text-gray-500"><%= investor.phone_number %></div>
+          </div>
+        </div>
+        <%= link_to 'View', partner_investor_path(@partner, investor), class: 'ml-4 bg-gray-100 text-blue-700 px-4 py-2 rounded hover:bg-blue-200 transition text-sm font-semibold' %>
+      </div>
+    <% end %>
+  </div>
 </div>
