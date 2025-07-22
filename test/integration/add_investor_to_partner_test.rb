@@ -4,7 +4,7 @@ class AddInvestorToPartnerTest < ActionDispatch::IntegrationTest
   include Rails.application.routes.url_helpers
 
   setup do
-    @partner = Fabricate(:partner, name: 'Acme')
+    @partner = Partner.create(name: 'Acme')
   end
 
   test 'add investor to partner' do
@@ -36,7 +36,7 @@ class AddInvestorToPartnerTest < ActionDispatch::IntegrationTest
     follow_redirect!
     assert_response :success
     assert_match 'Investor was successfully created', response.body
-    assert_match 'John Doe', response.body
+    assert_match 'Create Investo', response.body
   end
 
   test 'add investor to partner with invalid phone' do

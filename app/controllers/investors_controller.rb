@@ -16,10 +16,8 @@ class InvestorsController < ApplicationController
 
   def create
     @investor = @partner.investors.build(investor_params)
-    if params[:commit] == 'Cancel'
-      redirect_to partner_investors_path(@partner)
-    elsif @investor.save
-      redirect_to partner_investors_path(@partner), notice: 'Investor was successfully created.'
+    if @investor.save
+      redirect_to new_partner_investor_path(@partner), notice: 'Investor was successfully created.'
     else
       render :new, status: :unprocessable_entity
     end
